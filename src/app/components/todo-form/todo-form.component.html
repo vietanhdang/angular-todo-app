@@ -1,0 +1,36 @@
+<div class="todo-form">
+    <h3>➕ Thêm Todo Mới</h3>
+
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="todoText">Nội dung Todo:</label>
+            <input
+                type="text"
+                id="todoText"
+                [(ngModel)]="todoText"
+                name="todoText"
+                placeholder="Nhập nội dung todo..."
+                (keyup.enter)="onEnterKey($event)"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="userId">User ID:</label>
+            <input
+                type="number"
+                id="userId"
+                [(ngModel)]="userId"
+                name="userId"
+                min="1"
+                placeholder="Nhập User ID"
+            />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary" [disabled]="!todoText.trim()">
+                ➕ Thêm Todo
+            </button>
+        </div>
+    </form>
+</div>
