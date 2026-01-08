@@ -19,6 +19,10 @@ export const routes: Routes = [
 		loadComponent: () => import('./pages/about/about.component').then(m => m.AboutComponent)
 	},
 	{
+		path: 'pipes',
+		loadComponent: () => import('./pages/pipes/pipes.component').then(m => m.PipesComponent)
+	},
+	{
 		path: '**',
 		redirectTo: '/home'
 	}
