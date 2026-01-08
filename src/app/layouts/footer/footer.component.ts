@@ -13,9 +13,8 @@ export class FooterComponent {
   currentYear = new Date().getFullYear();
 
   socialLinks = [
-    { name: 'GitHub', icon: '⚙️', url: 'https://github.com' },
-    { name: 'Twitter', icon: '🐦', url: 'https://twitter.com' },
-    { name: 'LinkedIn', icon: '💼', url: 'https://linkedin.com' },
+    { name: 'GitHub', icon: '⚙️', url: 'http://github.com/vietanhdang' },
+    { name: 'LinkedIn', icon: '💼', url: 'https://www.linkedin.com/in/vietanh47/' },
   ];
 
   quickLinks = [
