@@ -1,51 +1,55 @@
 <li class="todo-item" [class.completed]="todo.completed">
-	<div class="todo-content">
-		<!-- Edit Mode -->
-		<div *ngIf="isEditing" class="edit-mode">
-			<input type="text" [value]="editText" (input)="onEditTextChange($any($event.target).value)"
-				(keyup.enter)="onSaveEdit()" (keyup.escape)="onCancelEdit()" class="edit-input">
-		</div>
+  <div class="todo-content">
+    <!-- Edit Mode -->
+    <div *ngIf="isEditing" class="edit-mode">
+      <input
+        type="text"
+        [value]="editText"
+        (input)="onEditTextChange($any($event.target).value)"
+        (keyup.enter)="onSaveEdit()"
+        (keyup.escape)="onCancelEdit()"
+        class="edit-input"
+      />
+    </div>
 
-		<!-- View Mode -->
-		<div *ngIf="!isEditing" class="view-mode">
-			<div class="todo-text">
-				{{ todo.todo }}
-				<span class="status-badge" [class.status-completed]="todo.completed"
-					[class.status-pending]="!todo.completed">
-					{{ todo.completed ? '✓ Hoàn thành' : '○ Chưa xong' }}
-				</span>
-			</div>
-			<div class="todo-meta">
-				<span class="meta-item">🆔 ID: {{ todo.id }}</span>
-				<span class="meta-divider">|</span>
-				<span class="meta-item">👤 User: {{ todo.userId }}</span>
-			</div>
-		</div>
-	</div>
+    <!-- View Mode -->
+    <div *ngIf="!isEditing" class="view-mode">
+      <div class="todo-text">
+        {{ todo.todo }}
+        <span
+          class="status-badge"
+          [class.status-completed]="todo.completed"
+          [class.status-pending]="!todo.completed"
+        >
+          {{ todo.completed ? '✓ Hoàn thành' : '○ Chưa xong' }}
+        </span>
+      </div>
+      <div class="todo-meta">
+        <span class="meta-item">🆔 ID: {{ todo.id }}</span>
+        <span class="meta-divider">|</span>
+        <span class="meta-item">👤 User: {{ todo.userId }}</span>
+      </div>
+    </div>
+  </div>
 
-	<div class="todo-actions">
-		<!-- Edit Mode Actions -->
-		<ng-container *ngIf="isEditing">
-			<button class="btn-success" (click)="onSaveEdit()" title="Lưu thay đổi">
-				💾 Lưu
-			</button>
-			<button class="btn-secondary" (click)="onCancelEdit()" title="Hủy chỉnh sửa">
-				❌ Hủy
-			</button>
-		</ng-container>
+  <div class="todo-actions">
+    <!-- Edit Mode Actions -->
+    <ng-container *ngIf="isEditing">
+      <button class="btn-success" (click)="onSaveEdit()" title="Lưu thay đổi">💾 Lưu</button>
+      <button class="btn-secondary" (click)="onCancelEdit()" title="Hủy chỉnh sửa">❌ Hủy</button>
+    </ng-container>
 
-		<!-- View Mode Actions -->
-		<ng-container *ngIf="!isEditing">
-			<button class="btn-success" (click)="onToggleComplete()"
-				[title]="todo.completed ? 'Đánh dấu chưa xong' : 'Đánh dấu hoàn thành'">
-				{{ todo.completed ? '↩️ Chưa xong' : '✓ Hoàn thành' }}
-			</button>
-			<button class="btn-warning" (click)="onStartEdit()" title="Chỉnh sửa todo">
-				✏️ Sửa
-			</button>
-			<button class="btn-danger" (click)="onDelete()" title="Xóa todo">
-				🗑️ Xóa
-			</button>
-		</ng-container>
-	</div>
+    <!-- View Mode Actions -->
+    <ng-container *ngIf="!isEditing">
+      <button
+        class="btn-success"
+        (click)="onToggleComplete()"
+        [title]="todo.completed ? 'Đánh dấu chưa xong' : 'Đánh dấu hoàn thành'"
+      >
+        {{ todo.completed ? '↩️ Chưa xong' : '✓ Hoàn thành' }}
+      </button>
+      <button class="btn-warning" (click)="onStartEdit()" title="Chỉnh sửa todo">✏️ Sửa</button>
+      <button class="btn-danger" (click)="onDelete()" title="Xóa todo">🗑️ Xóa</button>
+    </ng-container>
+  </div>
 </li>

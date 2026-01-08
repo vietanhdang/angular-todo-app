@@ -3,16 +3,16 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-	selector: 'app-navigation',
-	standalone: true,
-	imports: [CommonModule, RouterLink, RouterLinkActive],
-	templateUrl: './navigation.component.html',
-	styleUrls: ['./navigation.component.css']
+  selector: 'app-navigation',
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent {
-	menuOpen = false;
+  menuOpen = false;
 
-	toggleMenu(): void {
-		this.menuOpen = !this.menuOpen;
-	}
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
 }

@@ -1,56 +1,58 @@
 <div class="about-container">
-	<div class="about-header">
-		<h1>📚 Về Angular Todo App</h1>
-		<p>Ứng dụng học tập Angular với đầy đủ tính năng CRUD, Router và các best practices</p>
-	</div>
+  <div class="about-header">
+    <h1>📚 Về Angular Todo App</h1>
+    <p>Ứng dụng học tập Angular với đầy đủ tính năng CRUD, Router và các best practices</p>
+  </div>
 
-	<section class="section">
-		<h2>🎯 Mục đích</h2>
-		<div class="content-box">
-			<p>
-				Đây là một project học tập được thiết kế để giúp bạn hiểu các khái niệm cơ bản và nâng cao của Angular.
-				Ứng dụng sử dụng API từ <strong>DummyJSON</strong> để thực hiện các thao tác CRUD một cách thực tế.
-			</p>
-		</div>
-	</section>
+  <section class="section">
+    <h2>🎯 Mục đích</h2>
+    <div class="content-box">
+      <p>
+        Đây là một project học tập được thiết kế để giúp bạn hiểu các khái niệm cơ bản và nâng cao
+        của Angular. Ứng dụng sử dụng API từ
+        <strong>DummyJSON</strong>
+        để thực hiện các thao tác CRUD một cách thực tế.
+      </p>
+    </div>
+  </section>
 
-	<section class="section">
-		<h2>💡 Các khái niệm Angular</h2>
-		<div class="concepts-grid">
-			<div class="concept-card" *ngFor="let concept of concepts">
-				<h3>{{ concept.title }}</h3>
-				<p>{{ concept.description }}</p>
-				<code class="code-snippet">{{ concept.code }}</code>
-			</div>
-		</div>
-	</section>
+  <section class="section">
+    <h2>💡 Các khái niệm Angular</h2>
+    <div class="concepts-grid">
+      <div class="concept-card" *ngFor="let concept of concepts">
+        <h3>{{ concept.title }}</h3>
+        <p>{{ concept.description }}</p>
+        <code class="code-snippet">{{ concept.code }}</code>
+      </div>
+    </div>
+  </section>
 
-	<section class="section">
-		<h2>🔌 API Endpoints</h2>
-		<div class="api-table">
-			<div class="api-header">
-				<div class="api-col">Method</div>
-				<div class="api-col">Endpoint</div>
-				<div class="api-col">Mô tả</div>
-			</div>
-			<div class="api-row" *ngFor="let endpoint of apiEndpoints">
-				<div class="api-col">
-					<span class="method-badge" [class]="'method-' + endpoint.method.toLowerCase()">
-						{{ endpoint.method }}
-					</span>
-				</div>
-				<div class="api-col">
-					<code>{{ endpoint.url }}</code>
-				</div>
-				<div class="api-col">{{ endpoint.description }}</div>
-			</div>
-		</div>
-	</section>
+  <section class="section">
+    <h2>🔌 API Endpoints</h2>
+    <div class="api-table">
+      <div class="api-header">
+        <div class="api-col">Method</div>
+        <div class="api-col">Endpoint</div>
+        <div class="api-col">Mô tả</div>
+      </div>
+      <div class="api-row" *ngFor="let endpoint of apiEndpoints">
+        <div class="api-col">
+          <span class="method-badge" [class]="'method-' + endpoint.method.toLowerCase()">
+            {{ endpoint.method }}
+          </span>
+        </div>
+        <div class="api-col">
+          <code>{{ endpoint.url }}</code>
+        </div>
+        <div class="api-col">{{ endpoint.description }}</div>
+      </div>
+    </div>
+  </section>
 
-	<section class="section">
-		<h2>📂 Cấu trúc Project</h2>
-		<div class="content-box">
-			<pre class="structure-tree">
+  <section class="section">
+    <h2>📂 Cấu trúc Project</h2>
+    <div class="content-box">
+      <pre class="structure-tree">
 src/app/
 ├── components/
 │   ├── todo-list/       # Component hiển thị danh sách
@@ -65,27 +67,37 @@ src/app/
 ├── models/
 │   └── todo.model.ts   # TypeScript interfaces
 ├── app.component.ts    # Root component
-└── app.routes.ts       # Routes configuration</pre>
-		</div>
-	</section>
+└── app.routes.ts       # Routes configuration</pre
+      >
+    </div>
+  </section>
 
-	<section class="section">
-		<h2>🚀 Bắt đầu</h2>
-		<div class="content-box">
-			<ol class="steps-list">
-				<li>Clone repository</li>
-				<li>Chạy <code>npm install</code> để cài dependencies</li>
-				<li>Chạy <code>npm start</code> để start development server</li>
-				<li>Mở trình duyệt tại <code>http://localhost:4200</code></li>
-			</ol>
-		</div>
-	</section>
+  <section class="section">
+    <h2>🚀 Bắt đầu</h2>
+    <div class="content-box">
+      <ol class="steps-list">
+        <li>Clone repository</li>
+        <li>
+          Chạy
+          <code>npm install</code>
+          để cài dependencies
+        </li>
+        <li>
+          Chạy
+          <code>npm start</code>
+          để start development server
+        </li>
+        <li>
+          Mở trình duyệt tại
+          <code>http://localhost:4200</code>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-	<section class="section cta-section">
-		<h2>✨ Sẵn sàng thử nghiệm?</h2>
-		<p>Khám phá tất cả các tính năng của ứng dụng</p>
-		<button class="btn-primary btn-large" routerLink="/todos">
-			Đi đến Todos →
-		</button>
-	</section>
+  <section class="section cta-section">
+    <h2>✨ Sẵn sàng thử nghiệm?</h2>
+    <p>Khám phá tất cả các tính năng của ứng dụng</p>
+    <button class="btn-primary btn-large" routerLink="/todos">Đi đến Todos →</button>
+  </section>
 </div>

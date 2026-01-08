@@ -1,32 +1,32 @@
 <nav class="navbar">
-	<div class="nav-container">
-		<div class="nav-logo">
-			<a routerLink="/home">📝 Angular Todo App</a>
-		</div>
+  <div class="nav-container">
+    <div class="nav-logo">
+      <a routerLink="/home">📝 Angular Todo App</a>
+    </div>
 
-		<button class="nav-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
-			<span></span>
-			<span></span>
-			<span></span>
-		</button>
+    <button class="nav-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-		<ul class="nav-menu" [class.active]="menuOpen">
-			<li class="nav-item">
-				<a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-					(click)="menuOpen = false">
-					🏠 Home
-				</a>
-			</li>
-			<li class="nav-item">
-				<a routerLink="/todos" routerLinkActive="active" (click)="menuOpen = false">
-					✅ Todos
-				</a>
-			</li>
-			<li class="nav-item">
-				<a routerLink="/about" routerLinkActive="active" (click)="menuOpen = false">
-					ℹ️ About
-				</a>
-			</li>
-		</ul>
-	</div>
+    <ul class="nav-menu" [class.active]="menuOpen">
+      <li class="nav-item">
+        <a
+          routerLink="/home"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="menuOpen = false"
+        >
+          🏠 Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/todos" routerLinkActive="active" (click)="menuOpen = false">✅ Todos</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/about" routerLinkActive="active" (click)="menuOpen = false">ℹ️ About</a>
+      </li>
+    </ul>
+  </div>
 </nav>

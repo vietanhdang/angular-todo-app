@@ -122,12 +122,12 @@ Angular tự động inject TodoService vào component.
 
 ```typescript
 this.todoService.getAllTodos().subscribe({
-    next: (response) => {
-        /* xử lý dữ liệu */
-    },
-    error: (err) => {
-        /* xử lý lỗi */
-    },
+  next: (response) => {
+    /* xử lý dữ liệu */
+  },
+  error: (err) => {
+    /* xử lý lỗi */
+  },
 });
 ```
 
@@ -178,8 +178,8 @@ get totalPages(): number {
 
 ```typescript
 error: (err) => {
-    this.error = 'Không thể tải danh sách todos';
-    console.error(err);
+  this.error = 'Không thể tải danh sách todos';
+  console.error(err);
 };
 ```
 
@@ -198,21 +198,21 @@ error: (err) => {
 ## 📝 Lưu ý khi học
 
 1. **API là mock API**:
-    - POST/PUT/DELETE không thực sự thay đổi dữ liệu trên server
-    - Chỉ simulate response
+   - POST/PUT/DELETE không thực sự thay đổi dữ liệu trên server
+   - Chỉ simulate response
 
 2. **Best Practices**:
-    - Tách logic vào services
-    - Sử dụng TypeScript types
-    - Handle errors properly
-    - Unsubscribe observables khi cần (trong project này Angular tự động unsubscribe)
+   - Tách logic vào services
+   - Sử dụng TypeScript types
+   - Handle errors properly
+   - Unsubscribe observables khi cần (trong project này Angular tự động unsubscribe)
 
 3. **Mở rộng thêm**:
-    - Thêm routing cho nhiều pages
-    - Sử dụng Reactive Forms thay vì Template-driven Forms
-    - Thêm state management (NgRx, Akita)
-    - Thêm animations
-    - Thêm unit tests
+   - Thêm routing cho nhiều pages
+   - Sử dụng Reactive Forms thay vì Template-driven Forms
+   - Thêm state management (NgRx, Akita)
+   - Thêm animations
+   - Thêm unit tests
 
 ## 🐛 Debug
 

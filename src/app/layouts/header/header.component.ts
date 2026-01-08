@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-	selector: 'app-header',
-	standalone: true,
-	imports: [CommonModule, RouterLink, RouterLinkActive],
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.css']
+  selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-	menuOpen = false;
+  menuOpen = false;
 
-	toggleMenu(): void {
-		this.menuOpen = !this.menuOpen;
-	}
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
 
-	closeMenu(): void {
-		this.menuOpen = false;
-	}
+  closeMenu(): void {
+    this.menuOpen = false;
+  }
 }

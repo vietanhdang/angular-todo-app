@@ -1,343 +1,361 @@
 <div class="pipes-container">
-	<div class="pipes-header">
-		<h1>🔧 Angular Pipes Demo</h1>
-		<p>Pipes transform data trong templates - Built-in & Custom Pipes</p>
-	</div>
+  <div class="pipes-header">
+    <h1>🔧 Angular Pipes Demo</h1>
+    <p>Pipes transform data trong templates - Built-in & Custom Pipes</p>
+  </div>
 
-	<!-- Built-in Pipes -->
-	<section class="pipes-section">
-		<h2>📦 Built-in Pipes</h2>
-		<p class="section-desc">Angular cung cấp sẵn nhiều pipes hữu ích</p>
+  <!-- Built-in Pipes -->
+  <section class="pipes-section">
+    <h2>📦 Built-in Pipes</h2>
+    <p class="section-desc">Angular cung cấp sẵn nhiều pipes hữu ích</p>
 
-		<div class="pipes-grid">
-			<!-- Date Pipe -->
-			<div class="pipe-card">
-				<h3>DatePipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<code>{{ currentDate }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">short:</span>
-						<code>{{ currentDate | date: 'short' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">medium:</span>
-						<code>{{ currentDate | date: 'medium' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">dd/MM/yyyy:</span>
-						<code>{{ currentDate | date: 'dd/MM/yyyy' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">fullDate:</span>
-						<code>{{ currentDate | date: 'fullDate' }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ date | date: "short" }}' }}</code>
-				</div>
-			</div>
+    <div class="pipes-grid">
+      <!-- Date Pipe -->
+      <div class="pipe-card">
+        <h3>DatePipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <code>{{ currentDate }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">short:</span>
+            <code>{{ currentDate | date: 'short' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">medium:</span>
+            <code>{{ currentDate | date: 'medium' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">dd/MM/yyyy:</span>
+            <code>{{ currentDate | date: 'dd/MM/yyyy' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">fullDate:</span>
+            <code>{{ currentDate | date: 'fullDate' }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ date | date: "short" }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Currency Pipe -->
-			<div class="pipe-card">
-				<h3>CurrencyPipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<code>{{ price }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">USD:</span>
-						<code>{{ price | currency: 'USD' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">VND:</span>
-						<code>{{ price | currency: 'VND' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">EUR:</span>
-						<code>{{ price | currency: 'EUR' }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ price | currency: "USD" }}' }}</code>
-				</div>
-			</div>
+      <!-- Currency Pipe -->
+      <div class="pipe-card">
+        <h3>CurrencyPipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <code>{{ price }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">USD:</span>
+            <code>{{ price | currency: 'USD' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">VND:</span>
+            <code>{{ price | currency: 'VND' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">EUR:</span>
+            <code>{{ price | currency: 'EUR' }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ price | currency: "USD" }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Number/Decimal Pipe -->
-			<div class="pipe-card">
-				<h3>DecimalPipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<code>{{ decimal }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">1.0-2:</span>
-						<code>{{ decimal | number: '1.0-2' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">1.2-4:</span>
-						<code>{{ decimal | number: '1.2-4' }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ number | number: "1.0-2" }}' }}</code>
-				</div>
-			</div>
+      <!-- Number/Decimal Pipe -->
+      <div class="pipe-card">
+        <h3>DecimalPipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <code>{{ decimal }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">1.0-2:</span>
+            <code>{{ decimal | number: '1.0-2' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">1.2-4:</span>
+            <code>{{ decimal | number: '1.2-4' }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ number | number: "1.0-2" }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Percent Pipe -->
-			<div class="pipe-card">
-				<h3>PercentPipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<code>{{ percentage }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Percent:</span>
-						<code>{{ percentage | percent }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">With digits:</span>
-						<code>{{ percentage | percent: '1.2-2' }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ value | percent }}' }}</code>
-				</div>
-			</div>
+      <!-- Percent Pipe -->
+      <div class="pipe-card">
+        <h3>PercentPipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <code>{{ percentage }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Percent:</span>
+            <code>{{ percentage | percent }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">With digits:</span>
+            <code>{{ percentage | percent: '1.2-2' }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ value | percent }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Case Pipes -->
-			<div class="pipe-card">
-				<h3>Case Pipes</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<code>angular pipes example</code>
-					</div>
-					<div class="transformed">
-						<span class="label">uppercase:</span>
-						<code>{{ 'angular pipes example' | uppercase }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">lowercase:</span>
-						<code>{{ 'ANGULAR PIPES EXAMPLE' | lowercase }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">titlecase:</span>
-						<code>{{ 'angular pipes example' | titlecase }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ text | uppercase }}' }}</code>
-				</div>
-			</div>
+      <!-- Case Pipes -->
+      <div class="pipe-card">
+        <h3>Case Pipes</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <code>angular pipes example</code>
+          </div>
+          <div class="transformed">
+            <span class="label">uppercase:</span>
+            <code>{{ 'angular pipes example' | uppercase }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">lowercase:</span>
+            <code>{{ 'ANGULAR PIPES EXAMPLE' | lowercase }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">titlecase:</span>
+            <code>{{ 'angular pipes example' | titlecase }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ text | uppercase }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Slice Pipe -->
-			<div class="pipe-card">
-				<h3>SlicePipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<code>{{ fruits }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">slice:0:3:</span>
-						<code>{{ fruits | slice: 0:3 }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">slice:2:</span>
-						<code>{{ fruits | slice: 2 }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ array | slice: 0:3 }}' }}</code>
-				</div>
-			</div>
+      <!-- Slice Pipe -->
+      <div class="pipe-card">
+        <h3>SlicePipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <code>{{ fruits }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">slice:0:3:</span>
+            <code>{{ fruits | slice: 0 : 3 }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">slice:2:</span>
+            <code>{{ fruits | slice: 2 }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ array | slice: 0:3 }}' }}</code>
+        </div>
+      </div>
 
-			<!-- JSON Pipe -->
-			<div class="pipe-card">
-				<h3>JsonPipe</h3>
-				<div class="pipe-example">
-					<div class="transformed">
-						<pre>{{ objectData | json }}</pre>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ object | json }}' }}</code>
-				</div>
-			</div>
-		</div>
-	</section>
+      <!-- JSON Pipe -->
+      <div class="pipe-card">
+        <h3>JsonPipe</h3>
+        <div class="pipe-example">
+          <div class="transformed">
+            <pre>{{ objectData | json }}</pre>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ object | json }}' }}</code>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<!-- Custom Pipes -->
-	<section class="pipes-section">
-		<h2>⚡ Custom Pipes</h2>
-		<p class="section-desc">Pipes tự tạo để xử lý logic riêng</p>
+  <!-- Custom Pipes -->
+  <section class="pipes-section">
+    <h2>⚡ Custom Pipes</h2>
+    <p class="section-desc">Pipes tự tạo để xử lý logic riêng</p>
 
-		<div class="pipes-grid">
-			<!-- Highlight Pipe -->
-			<div class="pipe-card">
-				<h3>HighlightPipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Search term:</span>
-						<input type="text" [(ngModel)]="searchTerm" placeholder="Nhập từ khóa">
-					</div>
-					<div class="original">
-						<span class="label">Text:</span>
-						<code>{{ highlightText }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Highlighted:</span>
-						<p [innerHTML]="highlightText | highlight: searchTerm"></p>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ text | highlight: searchTerm }}' }}</code>
-				</div>
-			</div>
+    <div class="pipes-grid">
+      <!-- Highlight Pipe -->
+      <div class="pipe-card">
+        <h3>HighlightPipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Search term:</span>
+            <input type="text" [(ngModel)]="searchTerm" placeholder="Nhập từ khóa" />
+          </div>
+          <div class="original">
+            <span class="label">Text:</span>
+            <code>{{ highlightText }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Highlighted:</span>
+            <p [innerHTML]="highlightText | highlight: searchTerm"></p>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ text | highlight: searchTerm }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Truncate Pipe -->
-			<div class="pipe-card">
-				<h3>TruncatePipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<p>{{ longText }}</p>
-					</div>
-					<div class="transformed">
-						<span class="label">Truncate 50:</span>
-						<p>{{ longText | truncate: 50 }}</p>
-					</div>
-					<div class="transformed">
-						<span class="label">Truncate 100:</span>
-						<p>{{ longText | truncate: 100 }}</p>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ text | truncate: 50 }}' }}</code>
-				</div>
-			</div>
+      <!-- Truncate Pipe -->
+      <div class="pipe-card">
+        <h3>TruncatePipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <p>{{ longText }}</p>
+          </div>
+          <div class="transformed">
+            <span class="label">Truncate 50:</span>
+            <p>{{ longText | truncate: 50 }}</p>
+          </div>
+          <div class="transformed">
+            <span class="label">Truncate 100:</span>
+            <p>{{ longText | truncate: 100 }}</p>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ text | truncate: 50 }}' }}</code>
+        </div>
+      </div>
 
-			<!-- TimeAgo Pipe -->
-			<div class="pipe-card">
-				<h3>TimeAgoPipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Date:</span>
-						<code>{{ pastDate | date: 'medium' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Time ago:</span>
-						<code>{{ pastDate | timeAgo }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Current:</span>
-						<code>{{ currentDate | timeAgo }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ date | timeAgo }}' }}</code>
-				</div>
-			</div>
+      <!-- TimeAgo Pipe -->
+      <div class="pipe-card">
+        <h3>TimeAgoPipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Date:</span>
+            <code>{{ pastDate | date: 'medium' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Time ago:</span>
+            <code>{{ pastDate | timeAgo }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Current:</span>
+            <code>{{ currentDate | timeAgo }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ date | timeAgo }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Sort Pipe -->
-			<div class="pipe-card">
-				<h3>SortPipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original:</span>
-						<code>{{ numbers }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Ascending:</span>
-						<code>{{ numbers | sort: 'asc' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Descending:</span>
-						<code>{{ numbers | sort: 'desc' }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Users by name ({{ sortOrder }}):</span>
-						<button class="btn-small" (click)="toggleSort()">Toggle Sort</button>
-						<ul>
-							<li *ngFor="let user of users | sort: sortOrder: 'name'">
-								{{ user.name }} - {{ user.age }} tuổi
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ array | sort: "asc" }}' }}</code>
-				</div>
-			</div>
+      <!-- Sort Pipe -->
+      <div class="pipe-card">
+        <h3>SortPipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original:</span>
+            <code>{{ numbers }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Ascending:</span>
+            <code>{{ numbers | sort: 'asc' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Descending:</span>
+            <code>{{ numbers | sort: 'desc' }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Users by name ({{ sortOrder }}):</span>
+            <button class="btn-small" (click)="toggleSort()">Toggle Sort</button>
+            <ul>
+              <li *ngFor="let user of users | sort: sortOrder : 'name'">
+                {{ user.name }} - {{ user.age }} tuổi
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ array | sort: "asc" }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Reverse Pipe -->
-			<div class="pipe-card">
-				<h3>ReversePipe</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">String:</span>
-						<code>{{ reversibleText }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Reversed:</span>
-						<code>{{ reversibleText | reverse }}</code>
-					</div>
-					<div class="original">
-						<span class="label">Array:</span>
-						<code>{{ fruits }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Reversed:</span>
-						<code>{{ fruits | reverse }}</code>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ text | reverse }}' }}</code>
-				</div>
-			</div>
+      <!-- Reverse Pipe -->
+      <div class="pipe-card">
+        <h3>ReversePipe</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">String:</span>
+            <code>{{ reversibleText }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Reversed:</span>
+            <code>{{ reversibleText | reverse }}</code>
+          </div>
+          <div class="original">
+            <span class="label">Array:</span>
+            <code>{{ fruits }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Reversed:</span>
+            <code>{{ fruits | reverse }}</code>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ text | reverse }}' }}</code>
+        </div>
+      </div>
 
-			<!-- Chaining Pipes -->
-			<div class="pipe-card full-width">
-				<h3>🔗 Chaining Pipes</h3>
-				<div class="pipe-example">
-					<div class="original">
-						<span class="label">Original Date:</span>
-						<code>{{ currentDate }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">date | uppercase:</span>
-						<code>{{ currentDate | date: 'fullDate' | uppercase }}</code>
-					</div>
-					<div class="transformed">
-						<span class="label">Text | truncate | uppercase:</span>
-						<p>{{ longText | truncate: 30 | uppercase }}</p>
-					</div>
-				</div>
-				<div class="pipe-usage">
-					<code>{{ '{{ value | pipe1 | pipe2 | pipe3 }}' }}</code>
-				</div>
-			</div>
-		</div>
-	</section>
+      <!-- Chaining Pipes -->
+      <div class="pipe-card full-width">
+        <h3>🔗 Chaining Pipes</h3>
+        <div class="pipe-example">
+          <div class="original">
+            <span class="label">Original Date:</span>
+            <code>{{ currentDate }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">date | uppercase:</span>
+            <code>{{ currentDate | date: 'fullDate' | uppercase }}</code>
+          </div>
+          <div class="transformed">
+            <span class="label">Text | truncate | uppercase:</span>
+            <p>{{ longText | truncate: 30 | uppercase }}</p>
+          </div>
+        </div>
+        <div class="pipe-usage">
+          <code>{{ '{{ value | pipe1 | pipe2 | pipe3 }}' }}</code>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<!-- Pipe Benefits -->
-	<section class="pipes-section">
-		<div class="info-box">
-			<h3>💡 Lợi ích của Pipes</h3>
-			<ul>
-				<li><strong>Clean Templates:</strong> Giữ logic transform data ra khỏi component</li>
-				<li><strong>Reusable:</strong> Sử dụng lại ở nhiều nơi trong app</li>
-				<li><strong>Pure by Default:</strong> Tối ưu performance với pure pipes</li>
-				<li><strong>Chainable:</strong> Kết hợp nhiều pipes với nhau</li>
-				<li><strong>Easy to Test:</strong> Dễ dàng unit test</li>
-				<li><strong>Declarative:</strong> Code dễ đọc và maintain</li>
-			</ul>
-		</div>
-	</section>
+  <!-- Pipe Benefits -->
+  <section class="pipes-section">
+    <div class="info-box">
+      <h3>💡 Lợi ích của Pipes</h3>
+      <ul>
+        <li>
+          <strong>Clean Templates:</strong>
+          Giữ logic transform data ra khỏi component
+        </li>
+        <li>
+          <strong>Reusable:</strong>
+          Sử dụng lại ở nhiều nơi trong app
+        </li>
+        <li>
+          <strong>Pure by Default:</strong>
+          Tối ưu performance với pure pipes
+        </li>
+        <li>
+          <strong>Chainable:</strong>
+          Kết hợp nhiều pipes với nhau
+        </li>
+        <li>
+          <strong>Easy to Test:</strong>
+          Dễ dàng unit test
+        </li>
+        <li>
+          <strong>Declarative:</strong>
+          Code dễ đọc và maintain
+        </li>
+      </ul>
+    </div>
+  </section>
 </div>

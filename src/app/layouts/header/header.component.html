@@ -1,55 +1,70 @@
 <header class="header">
-	<nav class="navbar">
-		<div class="nav-container">
-			<!-- Logo/Brand -->
-			<div class="nav-brand">
-				<a routerLink="/home" class="brand-link">
-					<span class="brand-icon">📝</span>
-					<span class="brand-text">Angular Todo App</span>
-				</a>
-			</div>
+  <nav class="navbar">
+    <div class="nav-container">
+      <!-- Logo/Brand -->
+      <div class="nav-brand">
+        <a routerLink="/home" class="brand-link">
+          <span class="brand-icon">📝</span>
+          <span class="brand-text">Angular Todo App</span>
+        </a>
+      </div>
 
-			<!-- Hamburger Menu Toggle -->
-			<button class="nav-toggle" (click)="toggleMenu()" [class.active]="menuOpen" aria-label="Toggle navigation">
-				<span></span>
-				<span></span>
-				<span></span>
-			</button>
+      <!-- Hamburger Menu Toggle -->
+      <button
+        class="nav-toggle"
+        (click)="toggleMenu()"
+        [class.active]="menuOpen"
+        aria-label="Toggle navigation"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-			<!-- Navigation Menu -->
-			<ul class="nav-menu" [class.active]="menuOpen">
-				<li class="nav-item">
-					<a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-						(click)="closeMenu()" class="nav-link">
-						<span class="nav-icon">🏠</span>
-						<span class="nav-text">Home</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a routerLink="/todos" routerLinkActive="active" (click)="closeMenu()" class="nav-link">
-						<span class="nav-icon">✅</span>
-						<span class="nav-text">Todos</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a routerLink="/about" routerLinkActive="active" (click)="closeMenu()" class="nav-link">
-						<span class="nav-icon">ℹ️</span>
-						<span class="nav-text">About</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a routerLink="/pipes" routerLinkActive="active" (click)="closeMenu()" class="nav-link">
-						<span class="nav-icon">🔧</span>
-						<span class="nav-text">Pipes</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a routerLink="/component-demo" routerLinkActive="active" (click)="closeMenu()" class="nav-link">
-						<span class="nav-icon">🔄</span>
-						<span class="nav-text">Components</span>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+      <!-- Navigation Menu -->
+      <ul class="nav-menu" [class.active]="menuOpen">
+        <li class="nav-item">
+          <a
+            routerLink="/home"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+            class="nav-link"
+          >
+            <span class="nav-icon">🏠</span>
+            <span class="nav-text">Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/todos" routerLinkActive="active" (click)="closeMenu()" class="nav-link">
+            <span class="nav-icon">✅</span>
+            <span class="nav-text">Todos</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()" class="nav-link">
+            <span class="nav-icon">ℹ️</span>
+            <span class="nav-text">About</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/pipes" routerLinkActive="active" (click)="closeMenu()" class="nav-link">
+            <span class="nav-icon">🔧</span>
+            <span class="nav-text">Pipes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            routerLink="/component-demo"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            class="nav-link"
+          >
+            <span class="nav-icon">🔄</span>
+            <span class="nav-text">Components</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>
