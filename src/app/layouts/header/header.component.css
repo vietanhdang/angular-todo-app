@@ -87,6 +87,78 @@
   font-size: 1.2rem;
 }
 
+/* Dropdown Menu */
+.nav-item.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font: inherit;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s;
+  display: inline-block;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 8px 0;
+  margin: 5px 0 0 0;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s;
+  z-index: 100;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+  padding-left: 25px;
+}
+
+.dropdown-item.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.dropdown-item .nav-icon {
+  font-size: 1.1rem;
+}
+
 /* Hamburger Toggle */
 .nav-toggle {
   display: none;
@@ -150,7 +222,7 @@
   }
 
   .nav-menu.active {
-    max-height: 400px;
+    max-height: 600px;
   }
 
   .nav-link {
@@ -166,6 +238,35 @@
 
   .nav-text {
     font-size: 1rem;
+  }
+
+  /* Mobile Dropdown */
+  .dropdown-menu {
+    position: static;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    border-radius: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    margin: 0;
+  }
+
+  .dropdown-menu.show {
+    max-height: 400px;
+  }
+
+  .dropdown-item {
+    color: white;
+    padding-left: 40px;
+  }
+
+  .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .dropdown-item.active {
+    background: rgba(255, 255, 255, 0.25);
   }
 }
 

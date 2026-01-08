@@ -11,6 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent {
   menuOpen = false;
+  learningDropdownOpen = false;
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
@@ -18,5 +19,10 @@ export class HeaderComponent {
 
   closeMenu(): void {
     this.menuOpen = false;
+    this.learningDropdownOpen = false;
+  }
+
+  toggleLearningDropdown(): void {
+    this.learningDropdownOpen = !this.learningDropdownOpen;
   }
 }

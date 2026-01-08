@@ -35,6 +35,18 @@ export const routes: Routes = [
       import('./pages/lifecycle/lifecycle.component').then((m) => m.LifecycleComponent),
   },
   {
+    path: 'directives',
+    loadComponent: () =>
+      import('./pages/directives/directives.component').then((m) => m.DirectivesComponent),
+  },
+  {
+    path: 'reactive-forms',
+    loadComponent: () =>
+      import('./pages/reactive-forms/reactive-forms.component').then(
+        (m) => m.ReactiveFormsComponent,
+      ),
+  },
+  {
     path: '**',
     redirectTo: '/home',
   },

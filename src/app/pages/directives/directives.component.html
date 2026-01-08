@@ -1,0 +1,576 @@
+<div class="directives-container">
+  <div class="directives-header">
+    <h1>🎯 Angular Directives</h1>
+    <p>Structural & Attribute Directives - Thay đổi DOM và Behavior</p>
+  </div>
+
+  <!-- Directive Types Overview -->
+  <section class="directives-section">
+    <h2>📚 Directive Types</h2>
+    <div class="types-grid">
+      <div class="type-card structural">
+        <h3>🏗️ Structural Directives</h3>
+        <p>Thay đổi cấu trúc DOM bằng cách thêm/xóa elements</p>
+        <ul>
+          <li>
+            <code>*ngIf</code>
+            - Conditional rendering
+          </li>
+          <li>
+            <code>*ngFor</code>
+            - Loop rendering
+          </li>
+          <li>
+            <code>*ngSwitch</code>
+            - Switch-case rendering
+          </li>
+        </ul>
+        <div class="syntax-note">
+          <strong>⚠️ Lưu ý:</strong>
+          Prefix
+          <code>*</code>
+          là syntactic sugar cho
+          <code>&lt;ng-template&gt;</code>
+        </div>
+      </div>
+
+      <div class="type-card attribute">
+        <h3>🎨 Attribute Directives</h3>
+        <p>Thay đổi appearance hoặc behavior của element</p>
+        <ul>
+          <li>
+            <code>[ngClass]</code>
+            - Dynamic CSS classes
+          </li>
+          <li>
+            <code>[ngStyle]</code>
+            - Dynamic inline styles
+          </li>
+          <li>
+            <code>[(ngModel)]</code>
+            - Two-way binding
+          </li>
+        </ul>
+        <div class="syntax-note">
+          <strong>💡 Tip:</strong>
+          Custom directives có thể manipulate DOM, handle events
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Structural Directives Demo -->
+  <section class="directives-section">
+    <h2>🏗️ Structural Directives Demo</h2>
+
+    <!-- *ngIf Demo -->
+    <div class="demo-box">
+      <h3>1. *ngIf - Conditional Rendering</h3>
+      <div class="demo-controls">
+        <button class="btn-primary" (click)="toggleContent()">
+          {{ showContent ? '👁️ Hide Content' : '👁️‍🗨️ Show Content' }}
+        </button>
+      </div>
+
+      <div class="code-example">
+        <strong>Code:</strong>
+        <pre><code>&lt;div *ngIf="showContent"&gt;This content is conditionally rendered&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="result-box">
+        <strong>Result:</strong>
+        <div *ngIf="showContent" class="content-box">
+          ✨ Content is visible! Value: {{ showContent }}
+        </div>
+        <div *ngIf="!showContent" class="content-box inactive">
+          ❌ Content is hidden! Value: {{ showContent }}
+        </div>
+      </div>
+
+      <!-- ngIf with else -->
+      <div class="advanced-example">
+        <strong>Advanced: *ngIf với else</strong>
+        <pre><code>&lt;div *ngIf="condition; else elseBlock"&gt;True content&lt;/div&gt;
+&lt;ng-template #elseBlock&gt;False content&lt;/ng-template&gt;</code></pre>
+
+        <div *ngIf="showContent; else noContent" class="content-box success">
+          ✅ Condition is TRUE
+        </div>
+        <ng-template #noContent>
+          <div class="content-box warning">⚠️ Condition is FALSE (from ng-template)</div>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- *ngFor Demo -->
+    <div class="demo-box">
+      <h3>2. *ngFor - Loop Rendering</h3>
+
+      <div class="demo-controls">
+        <button class="btn-primary" (click)="addUser()">➕ Add User</button>
+        <div class="view-toggles">
+          <button
+            [class.active]="currentView === 'list'"
+            (click)="changeView('list')"
+            class="btn-view"
+          >
+            📋 List
+          </button>
+          <button
+            [class.active]="currentView === 'grid'"
+            (click)="changeView('grid')"
+            class="btn-view"
+          >
+            📱 Grid
+          </button>
+          <button
+            [class.active]="currentView === 'table'"
+            (click)="changeView('table')"
+            class="btn-view"
+          >
+            📊 Table
+          </button>
+        </div>
+      </div>
+
+      <div class="code-example">
+        <strong>Code:</strong>
+        <pre><code>&lt;div *ngFor="let user of users; index as i; trackBy: trackByUserId"&gt;
+		&#123; i + 1 &#125;. &#123; user.name &#125;
+		&lt;/div&gt;</code></pre>
+      </div>
+
+      <!-- List View -->
+      <div class="result-box" *ngIf="currentView === 'list'">
+        <div class="user-list">
+          <div
+            *ngFor="
+              let user of users;
+              index as i;
+              first as isFirst;
+              last as isLast;
+              even as isEven;
+              odd as isOdd;
+              trackBy: trackByUserId
+            "
+            class="user-item"
+            [class.first]="isFirst"
+            [class.last]="isLast"
+            [class.even]="isEven"
+            [class.odd]="isOdd"
+          >
+            <div class="user-info">
+              <span class="user-index">{{ i + 1 }}</span>
+              <div class="user-details">
+                <strong>{{ user.name }}</strong>
+                <span class="user-email">{{ user.email }}</span>
+              </div>
+              <span [class]="getRoleBadgeClass(user.role)">{{ user.role }}</span>
+              <span class="user-status" [class.active]="user.active">
+                {{ user.active ? '🟢 Active' : '🔴 Inactive' }}
+              </span>
+            </div>
+            <div class="user-actions">
+              <button class="btn-sm" (click)="toggleUserStatus(user)">Toggle Status</button>
+              <button class="btn-sm btn-danger" (click)="removeUser(user.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid View -->
+      <div class="result-box" *ngIf="currentView === 'grid'">
+        <div class="user-grid">
+          <div *ngFor="let user of users; trackBy: trackByUserId" class="user-card">
+            <div class="card-header">
+              <h4>{{ user.name }}</h4>
+              <span [class]="getRoleBadgeClass(user.role)">{{ user.role }}</span>
+            </div>
+            <div class="card-body">
+              <p>📧 {{ user.email }}</p>
+              <p>
+                Status:
+                <span [class.active]="user.active">
+                  {{ user.active ? '🟢 Active' : '🔴 Inactive' }}
+                </span>
+              </p>
+            </div>
+            <div class="card-footer">
+              <button class="btn-sm" (click)="selectUser(user)">Select</button>
+              <button class="btn-sm btn-danger" (click)="removeUser(user.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table View -->
+      <div class="result-box" *ngIf="currentView === 'table'">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users; index as i; trackBy: trackByUserId">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <strong>{{ user.name }}</strong>
+              </td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span [class]="getRoleBadgeClass(user.role)">{{ user.role }}</span>
+              </td>
+              <td>
+                <span [class.active]="user.active">{{ user.active ? '🟢' : '🔴' }}</span>
+              </td>
+              <td>
+                <button class="btn-sm" (click)="removeUser(user.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <strong>💡 ngFor Variables:</strong>
+        <ul>
+          <li>
+            <code>index</code>
+            - Current index (0-based)
+          </li>
+          <li>
+            <code>first</code>
+            - True if first item
+          </li>
+          <li>
+            <code>last</code>
+            - True if last item
+          </li>
+          <li>
+            <code>even</code>
+            - True if even index
+          </li>
+          <li>
+            <code>odd</code>
+            - True if odd index
+          </li>
+          <li>
+            <code>trackBy</code>
+            - Function to optimize rendering
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- *ngSwitch Demo -->
+    <div class="demo-box">
+      <h3>3. *ngSwitch - Switch Case</h3>
+
+      <div class="demo-controls">
+        <button
+          *ngFor="let role of ['admin', 'user', 'guest']"
+          (click)="selectRole(role)"
+          class="btn-primary"
+        >
+          Select {{ role }}
+        </button>
+      </div>
+
+      <div class="code-example">
+        <strong>Code:</strong>
+        <pre><code>&lt;div [ngSwitch]="selectedUser?.role"&gt;
+  &lt;div *ngSwitchCase="'admin'"&gt;Admin Panel&lt;/div&gt;
+  &lt;div *ngSwitchCase="'user'"&gt;User Dashboard&lt;/div&gt;
+  &lt;div *ngSwitchDefault&gt;Guest View&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="result-box">
+        <div [ngSwitch]="selectedUser?.role">
+          <div *ngSwitchCase="'admin'" class="role-view admin-view">
+            <h4>👑 Admin Panel</h4>
+            <p>Full access to all features</p>
+            <ul>
+              <li>✓ User Management</li>
+              <li>✓ System Settings</li>
+              <li>✓ Analytics</li>
+            </ul>
+          </div>
+          <div *ngSwitchCase="'user'" class="role-view user-view">
+            <h4>👤 User Dashboard</h4>
+            <p>Standard user features</p>
+            <ul>
+              <li>✓ Profile Settings</li>
+              <li>✓ View Content</li>
+              <li>✗ Admin Features</li>
+            </ul>
+          </div>
+          <div *ngSwitchDefault class="role-view guest-view">
+            <h4>👻 Guest View</h4>
+            <p>Limited access</p>
+            <ul>
+              <li>✓ Public Content Only</li>
+              <li>✗ No Profile</li>
+              <li>✗ No Settings</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Attribute Directives Demo -->
+  <section class="directives-section">
+    <h2>🎨 Attribute Directives Demo</h2>
+
+    <!-- ngClass Demo -->
+    <div class="demo-box">
+      <h3>1. [ngClass] - Dynamic CSS Classes</h3>
+
+      <div class="code-example">
+        <strong>Code:</strong>
+        <pre><code>&lt;div [ngClass]="{{'{'}}
+  'active': isActive,
+  'disabled': isDisabled,
+  'highlighted': isHighlighted
+{{'}'}}"&gt;Content&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="result-box">
+        <div class="ngclass-demo">
+          <div
+            [ngClass]="{
+              'box-active': showContent,
+              'box-large': users.length > 3,
+              'box-highlight': selectedUser !== null,
+            }"
+            class="dynamic-box"
+          >
+            <p>This box has dynamic classes!</p>
+            <ul>
+              <li>
+                showContent: {{ showContent }} →
+                <code>.box-active</code>
+              </li>
+              <li>
+                users.length > 3: {{ users.length > 3 }} →
+                <code>.box-large</code>
+              </li>
+              <li>
+                selectedUser: {{ selectedUser !== null }} →
+                <code>.box-highlight</code>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ngStyle Demo -->
+    <div class="demo-box">
+      <h3>2. [ngStyle] - Dynamic Inline Styles</h3>
+
+      <div class="demo-controls">
+        <label>
+          Background Color:
+          <input type="color" [(ngModel)]="highlightColor" />
+        </label>
+      </div>
+
+      <div class="code-example">
+        <strong>Code:</strong>
+        <pre><code>&lt;div [ngStyle]="{{'{'}}
+  'background-color': bgColor,
+  'font-size.px': fontSize,
+  'padding': '20px'
+{{'}'}}"&gt;Content&lt;/div&gt;</code></pre>
+      </div>
+
+      <div class="result-box">
+        <div
+          [ngStyle]="{
+            'background-color': highlightColor,
+            padding: '20px',
+            'border-radius': '10px',
+            transition: 'all 0.3s',
+          }"
+          class="dynamic-style-box"
+        >
+          <p style="color: #333; font-weight: bold">Dynamic Styles Applied!</p>
+          <p style="color: #666">Current color: {{ highlightColor }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Directives Demo -->
+    <div class="demo-box">
+      <h3>3. Custom Directives</h3>
+
+      <div class="custom-directives-grid">
+        <!-- Highlight Directive -->
+        <div class="directive-demo">
+          <h4>appHighlight</h4>
+          <p appHighlight [highlightColor]="'#FFD54F'" class="highlight-demo">
+            Hover over me! I have a custom highlight directive.
+          </p>
+          <div class="code-example">
+            <pre><code>&lt;p appHighlight [highlightColor]="'#FFD54F'"&gt;
+  Hover me!
+&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Tooltip Directive -->
+        <div class="directive-demo">
+          <h4>appTooltip</h4>
+          <button appTooltip tooltipText="This is a custom tooltip!" class="btn-primary">
+            Hover for Tooltip
+          </button>
+          <div class="code-example">
+            <pre><code>&lt;button appTooltip 
+  tooltipText="Custom tooltip!"&gt;
+  Hover me
+&lt;/button&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- Click Outside Directive -->
+        <div class="directive-demo">
+          <h4>appClickOutside</h4>
+          <div class="dropdown-demo">
+            <button class="btn-primary" (click)="toggleDropdown()">
+              {{ dropdownOpen ? '▼' : '▶' }} Toggle Dropdown
+            </button>
+            <div
+              *ngIf="dropdownOpen"
+              appClickOutside
+              (clickOutside)="onClickOutside()"
+              class="dropdown-menu"
+            >
+              <p>Click outside to close!</p>
+              <ul>
+                <li>Option 1</li>
+                <li>Option 2</li>
+                <li>Option 3</li>
+              </ul>
+            </div>
+          </div>
+          <div class="code-example">
+            <pre><code>&lt;div appClickOutside 
+  (clickOutside)="close()"&gt;
+  Click outside to close
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Documentation -->
+  <section class="directives-section">
+    <div class="documentation">
+      <h3>📖 Directive Reference</h3>
+
+      <div class="doc-grid">
+        <div class="doc-card">
+          <h4>Structural Directives</h4>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Directive</th>
+                <th>Syntax</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dir of structuralDirectives">
+                <td>
+                  <code>{{ dir.name }}</code>
+                </td>
+                <td>
+                  <code>{{ dir.syntax }}</code>
+                </td>
+                <td>{{ dir.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="doc-card">
+          <h4>Attribute Directives</h4>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Directive</th>
+                <th>Syntax</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dir of attributeDirectives">
+                <td>
+                  <code>{{ dir.name }}</code>
+                </td>
+                <td>
+                  <code>{{ dir.syntax }}</code>
+                </td>
+                <td>{{ dir.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Practices -->
+  <section class="directives-section">
+    <div class="best-practices">
+      <h3>💡 Best Practices</h3>
+      <div class="practice-grid">
+        <div class="practice-card do">
+          <h4>✓ DO</h4>
+          <ul>
+            <li>
+              Use
+              <code>trackBy</code>
+              với *ngFor để optimize performance
+            </li>
+            <li>
+              Prefer
+              <code>*ngIf</code>
+              over
+              <code>[hidden]</code>
+              khi element hiếm khi hiển thị
+            </li>
+            <li>
+              Dùng
+              <code>*ngSwitch</code>
+              thay vì nhiều
+              <code>*ngIf</code>
+            </li>
+            <li>Create custom directives cho reusable behaviors</li>
+            <li>Prefix custom directives với app namespace</li>
+          </ul>
+        </div>
+
+        <div class="practice-card dont">
+          <h4>✗ DON'T</h4>
+          <ul>
+            <li>Không dùng nhiều structural directives trên cùng element</li>
+            <li>Tránh complex logic trong template (move to component)</li>
+            <li>Không modify DOM trực tiếp, dùng Renderer2</li>
+            <li>Avoid deep nesting của *ngIf/*ngFor</li>
+            <li>Don't forget to unsubscribe trong custom directives</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

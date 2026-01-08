@@ -1,0 +1,507 @@
+<div class="reactive-forms-container">
+  <div class="forms-header">
+    <h1>📝 Reactive Forms</h1>
+    <p>FormGroup, FormControl, FormBuilder & Validators</p>
+  </div>
+
+  <!-- Introduction -->
+  <section class="forms-section">
+    <h2>📚 Reactive Forms vs Template-driven Forms</h2>
+    <div class="comparison-grid">
+      <div class="comparison-card reactive">
+        <h3>⚛️ Reactive Forms</h3>
+        <ul>
+          <li>✓ Model-driven approach</li>
+          <li>✓ Explicit, immutable data model</li>
+          <li>✓ Synchronous</li>
+          <li>✓ More testable</li>
+          <li>✓ Better for complex forms</li>
+          <li>✓ FormGroup, FormControl, FormArray</li>
+        </ul>
+      </div>
+
+      <div class="comparison-card template">
+        <h3>📄 Template-driven Forms</h3>
+        <ul>
+          <li>✓ Template-driven approach</li>
+          <li>✓ Implicit data model</li>
+          <li>✓ Asynchronous</li>
+          <li>✓ Easier for simple forms</li>
+          <li>✓ Less code in component</li>
+          <li>✓ NgModel directives</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simple Form -->
+  <section class="forms-section">
+    <h2>1️⃣ Simple Form - FormGroup & FormControl</h2>
+    <div class="demo-box">
+      <div class="code-example">
+        <strong>Component:</strong>
+        <pre><code>this.simpleForm = new FormGroup({{'{'}}{{'}'}}
+  name: new FormControl('', Validators.required),
+  email: new FormControl('', [Validators.required, Validators.email])
+{{'}'}});</code></pre>
+      </div>
+
+      <form [formGroup]="simpleForm" (ngSubmit)="onSimpleSubmit()" class="demo-form">
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" formControlName="name" class="form-control" />
+          <div
+            class="error-message"
+            *ngIf="simpleForm.get('name')?.invalid && simpleForm.get('name')?.touched"
+          >
+            Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" formControlName="email" class="form-control" />
+          <div
+            class="error-message"
+            *ngIf="simpleForm.get('email')?.invalid && simpleForm.get('email')?.touched"
+          >
+            Valid email is required
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="simpleForm.invalid">Submit</button>
+          <button type="button" class="btn-secondary" (click)="resetForm(simpleForm)">Reset</button>
+        </div>
+
+        <div class="form-status">
+          <p>
+            <strong>Form Status:</strong>
+            {{ simpleForm.status }}
+          </p>
+          <p>
+            <strong>Form Valid:</strong>
+            {{ simpleForm.valid }}
+          </p>
+        </div>
+      </form>
+
+      <div class="result-box" *ngIf="submittedData">
+        <h4>✅ Submitted Data:</h4>
+        <pre><code>{{ submittedData | json }}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form -->
+  <section class="forms-section">
+    <h2>2️⃣ Complex Form - FormBuilder & Validators</h2>
+    <div class="demo-box">
+      <div class="code-example">
+        <strong>Component:</strong>
+        <pre><code>this.registrationForm = this.fb.group({{'{'}}{{'}'}}
+  username: ['', [Validators.required, Validators.minLength(3)]],
+  email: ['', [Validators.required, Validators.email]],
+  password: ['', [Validators.required, this.strongPasswordValidator]],
+  confirmPassword: ['', Validators.required]
+{{'}'}}, {{'{'}}
+  validators: this.passwordMatchValidator
+{{'}'}});</code></pre>
+      </div>
+
+      <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationSubmit()" class="demo-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Username *</label>
+            <input
+              type="text"
+              formControlName="username"
+              class="form-control"
+              [class.invalid]="username?.invalid && username?.touched"
+            />
+            <div class="error-messages">
+              <div
+                class="error-message"
+                *ngIf="username?.errors?.['required'] && username?.touched"
+              >
+                Username is required
+              </div>
+              <div class="error-message" *ngIf="username?.errors?.['minlength']">
+                Min length: 3 characters (current: {{ username?.value?.length || 0 }})
+              </div>
+              <div class="error-message" *ngIf="username?.errors?.['maxlength']">
+                Max length: 20 characters
+              </div>
+              <div class="error-message" *ngIf="username?.errors?.['pattern']">
+                Only letters, numbers, and underscore allowed
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email *</label>
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              [class.invalid]="email?.invalid && email?.touched"
+            />
+            <div class="error-messages">
+              <div class="error-message" *ngIf="email?.errors?.['required'] && email?.touched">
+                Email is required
+              </div>
+              <div class="error-message" *ngIf="email?.errors?.['email']">Invalid email format</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Password *</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              [class.invalid]="password?.invalid && password?.touched"
+            />
+            <div class="password-strength" *ngIf="password?.value">
+              <div class="strength-bar" [attr.data-strength]="getPasswordStrength()">
+                <div class="strength-fill"></div>
+              </div>
+              <span class="strength-text">{{ getPasswordStrength() }}</span>
+            </div>
+            <div class="error-messages">
+              <div
+                class="error-message"
+                *ngIf="password?.errors?.['required'] && password?.touched"
+              >
+                Password is required
+              </div>
+              <div class="error-message" *ngIf="password?.errors?.['minlength']">
+                Min length: 8 characters
+              </div>
+              <div class="error-message" *ngIf="password?.errors?.['strongPassword']">
+                Password must include: uppercase, lowercase, number, special char
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Confirm Password *</label>
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              class="form-control"
+              [class.invalid]="confirmPassword?.invalid && confirmPassword?.touched"
+            />
+            <div class="error-messages">
+              <div
+                class="error-message"
+                *ngIf="confirmPassword?.errors?.['required'] && confirmPassword?.touched"
+              >
+                Confirm password is required
+              </div>
+              <div
+                class="error-message"
+                *ngIf="registrationForm.errors?.['passwordMismatch'] && confirmPassword?.touched"
+              >
+                Passwords do not match
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Age *</label>
+            <input
+              type="number"
+              formControlName="age"
+              class="form-control"
+              [class.invalid]="age?.invalid && age?.touched"
+            />
+            <div class="error-messages">
+              <div class="error-message" *ngIf="age?.errors?.['required'] && age?.touched">
+                Age is required
+              </div>
+              <div class="error-message" *ngIf="age?.errors?.['min']">
+                Must be at least 18 years old
+              </div>
+              <div class="error-message" *ngIf="age?.errors?.['max']">
+                Must be less than 100 years old
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Gender *</label>
+            <select formControlName="gender" class="form-control">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Country *</label>
+            <select formControlName="country" class="form-control">
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Hobbies</label>
+          <div class="checkbox-group">
+            <label *ngFor="let hobby of hobbiesList" class="checkbox-label">
+              <input
+                type="checkbox"
+                [checked]="isHobbySelected(hobby)"
+                (change)="toggleHobby(hobby)"
+              />
+              <span>{{ hobby }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label agreement">
+            <input type="checkbox" formControlName="agreement" />
+            <span>I agree to the terms and conditions *</span>
+          </label>
+          <div class="error-message" *ngIf="agreement?.errors?.['required'] && agreement?.touched">
+            You must agree to continue
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="registrationForm.invalid">
+            Register
+          </button>
+          <button type="button" class="btn-secondary" (click)="resetForm(registrationForm)">
+            Reset
+          </button>
+        </div>
+
+        <div class="form-status">
+          <p>
+            <strong>Form Valid:</strong>
+            <span [class.valid]="registrationForm.valid">{{ registrationForm.valid }}</span>
+          </p>
+          <p>
+            <strong>Form Touched:</strong>
+            {{ registrationForm.touched }}
+          </p>
+          <p>
+            <strong>Form Dirty:</strong>
+            {{ registrationForm.dirty }}
+          </p>
+        </div>
+      </form>
+
+      <div class="result-box" *ngIf="registrationData">
+        <h4>✅ Registration Data:</h4>
+        <pre><code>{{ registrationData | json }}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dynamic FormArray -->
+  <section class="forms-section">
+    <h2>3️⃣ Dynamic Form - FormArray</h2>
+    <div class="demo-box">
+      <div class="code-example">
+        <strong>FormArray Example:</strong>
+        <pre><code>this.fb.group({{'{'}}{{'}'}}
+  skills: this.fb.array([this.createSkillGroup()])
+{{'}'}});
+
+createSkillGroup() {{'{'}}{{'}'}}
+  return this.fb.group({{'{'}}{{'}'}}
+    name: ['', Validators.required],
+    level: ['beginner']
+  {{'}'}});
+{{'}'}}</code></pre>
+      </div>
+
+      <form [formGroup]="dynamicForm" (ngSubmit)="onDynamicSubmit()" class="demo-form">
+        <div formArrayName="skills">
+          <div
+            *ngFor="let skill of skills.controls; let i = index"
+            [formGroupName]="i"
+            class="skill-group"
+          >
+            <div class="skill-header">
+              <h4>Skill #{{ i + 1 }}</h4>
+              <button
+                type="button"
+                class="btn-danger-sm"
+                (click)="removeSkill(i)"
+                *ngIf="skills.controls.length > 1"
+              >
+                ✕ Remove
+              </button>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Skill Name *</label>
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  placeholder="e.g., Angular, React"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Level *</label>
+                <select formControlName="level" class="form-control">
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                  <option value="expert">Expert</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="addSkill()">➕ Add Skill</button>
+          <button type="submit" class="btn-primary" [disabled]="dynamicForm.invalid">
+            Submit Skills
+          </button>
+        </div>
+
+        <div class="form-value">
+          <strong>Current Value:</strong>
+          <pre><code>{{ dynamicForm.value | json }}</code></pre>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Best Practices -->
+  <section class="forms-section">
+    <div class="best-practices">
+      <h3>💡 Best Practices</h3>
+      <div class="practice-grid">
+        <div class="practice-card do">
+          <h4>✓ DO</h4>
+          <ul>
+            <li>
+              Use
+              <strong>FormBuilder</strong>
+              for cleaner code
+            </li>
+            <li>
+              Create
+              <strong>custom validators</strong>
+              for complex rules
+            </li>
+            <li>
+              Use
+              <strong>getters</strong>
+              for form controls in template
+            </li>
+            <li>
+              <strong>Subscribe</strong>
+              to valueChanges for reactive updates
+            </li>
+            <li>
+              Use
+              <strong>FormArray</strong>
+              for dynamic forms
+            </li>
+            <li>
+              <strong>Mark as touched</strong>
+              on submit for validation
+            </li>
+          </ul>
+        </div>
+
+        <div class="practice-card dont">
+          <h4>✗ DON'T</h4>
+          <ul>
+            <li>
+              Don't forget to
+              <strong>unsubscribe</strong>
+              from valueChanges
+            </li>
+            <li>
+              Avoid
+              <strong>setValue</strong>
+              with partial data (use patchValue)
+            </li>
+            <li>
+              Don't use
+              <strong>template-driven</strong>
+              and
+              <strong>reactive</strong>
+              together
+            </li>
+            <li>
+              Avoid heavy logic in
+              <strong>validators</strong>
+            </li>
+            <li>Don't manipulate form values directly</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Validator Reference -->
+  <section class="forms-section">
+    <div class="validator-reference">
+      <h3>📋 Built-in Validators</h3>
+      <table class="validator-table">
+        <thead>
+          <tr>
+            <th>Validator</th>
+            <th>Description</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Validators.required</code></td>
+            <td>Field is required</td>
+            <td><code>['', Validators.required]</code></td>
+          </tr>
+          <tr>
+            <td><code>Validators.minLength(n)</code></td>
+            <td>Minimum length</td>
+            <td><code>['', Validators.minLength(3)]</code></td>
+          </tr>
+          <tr>
+            <td><code>Validators.maxLength(n)</code></td>
+            <td>Maximum length</td>
+            <td><code>['', Validators.maxLength(20)]</code></td>
+          </tr>
+          <tr>
+            <td><code>Validators.min(n)</code></td>
+            <td>Minimum value</td>
+            <td><code>[0, Validators.min(18)]</code></td>
+          </tr>
+          <tr>
+            <td><code>Validators.max(n)</code></td>
+            <td>Maximum value</td>
+            <td><code>[0, Validators.max(100)]</code></td>
+          </tr>
+          <tr>
+            <td><code>Validators.email</code></td>
+            <td>Valid email</td>
+            <td><code>['', Validators.email]</code></td>
+          </tr>
+          <tr>
+            <td><code>Validators.pattern(regex)</code></td>
+            <td>Match regex pattern</td>
+            <td><code>['', Validators.pattern(/^[a-z]+$/)]</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
