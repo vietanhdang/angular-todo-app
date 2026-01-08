@@ -1,0 +1,63 @@
+<div class="home-container">
+	<div class="hero">
+		<h1>🎉 Chào mừng đến với Angular Todo App</h1>
+		<p class="subtitle">Một ứng dụng học tập Angular với đầy đủ tính năng CRUD và Router</p>
+		<div class="hero-actions">
+			<button class="btn-primary btn-large" routerLink="/todos">
+				Bắt đầu sử dụng →
+			</button>
+			<button class="btn-secondary btn-large" routerLink="/about">
+				Tìm hiểu thêm
+			</button>
+		</div>
+	</div>
+
+	<div class="features">
+		<h2>✨ Tính năng</h2>
+		<div class="features-grid">
+			<div class="feature-card" *ngFor="let feature of features">
+				<div class="feature-icon">{{ feature.icon }}</div>
+				<h3>{{ feature.title }}</h3>
+				<p>{{ feature.description }}</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="tech-stack">
+		<h2>🛠️ Công nghệ sử dụng</h2>
+		<div class="tech-list">
+			<div class="tech-item">
+				<span class="tech-name">Angular 17+</span>
+				<span class="tech-badge">Framework</span>
+			</div>
+			<div class="tech-item">
+				<span class="tech-name">TypeScript</span>
+				<span class="tech-badge">Language</span>
+			</div>
+			<div class="tech-item">
+				<span class="tech-name">RxJS</span>
+				<span class="tech-badge">Reactive</span>
+			</div>
+			<div class="tech-item">
+				<span class="tech-name">Angular Router</span>
+				<span class="tech-badge">Navigation</span>
+			</div>
+			<div class="tech-item">
+				<span class="tech-name">HttpClient</span>
+				<span class="tech-badge">API</span>
+			</div>
+			<div class="tech-item">
+				<span class="tech-name">Template-driven Forms</span>
+				<span class="tech-badge">Forms</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="cta">
+		<h2>🚀 Sẵn sàng thử ngay?</h2>
+		<p>Khám phá tất cả các tính năng của ứng dụng</p>
+		<button class="btn-primary btn-large" routerLink="/todos">
+			Đi đến Todos →
+		</button>
+	</div>
+</div>
