@@ -1,18 +1,28 @@
 <div class="todo-form">
     <h3>➕ Thêm Todo Mới</h3>
 
-    <form (ngSubmit)="onSubmit()">
+    <form #todoForm="ngForm" (ngSubmit)="onSubmit(todoForm)">
         <div class="form-group">
             <label for="todoText">Nội dung Todo:</label>
             <input
                 type="text"
                 id="todoText"
-                [(ngModel)]="todoText"
+                [(ngModel)]="todoModel.todoText"
                 name="todoText"
+                #todoTextInput="ngModel"
                 placeholder="Nhập nội dung todo..."
-                (keyup.enter)="onEnterKey($event)"
                 required
+                minlength="3"
             />
+            <!-- Hiển thị validation errors -->
+            <div *ngIf="todoTextInput.invalid && (todoTextInput.dirty || todoTextInput.touched)" class="error-message">
+                <small *ngIf="todoTextInput.errors?.['required']">
+                    ⚠️ Nội dung todo là bắt buộc
+                </small>
+                <small *ngIf="todoTextInput.errors?.['minlength']">
+                    ⚠️ Nội dung phải có ít nhất 3 ký tự
+                </small>
+            </div>
         </div>
 
         <div class="form-group">
@@ -20,16 +30,50 @@
             <input
                 type="number"
                 id="userId"
-                [(ngModel)]="userId"
+                [(ngModel)]="todoModel.userId"
                 name="userId"
+                #userIdInput="ngModel"
                 min="1"
+                max="100"
                 placeholder="Nhập User ID"
+                required
             />
+            <!-- Hiển thị validation errors -->
+            <div *ngIf="userIdInput.invalid && (userIdInput.dirty || userIdInput.touched)" class="error-message">
+                <small *ngIf="userIdInput.errors?.['required']">
+                    ⚠️ User ID là bắt buộc
+                </small>
+                <small *ngIf="userIdInput.errors?.['min']">
+                    ⚠️ User ID phải lớn hơn 0
+                </small>
+                <small *ngIf="userIdInput.errors?.['max']">
+                    ⚠️ User ID phải nhỏ hơn 100
+                </small>
+            </div>
+        </div>
+
+        <!-- Form Status (hiển thị khi develop để debug) -->
+        <div class="form-status" *ngIf="false">
+            <small>
+                Form Valid: {{ todoForm.valid }} | 
+                Form Pristine: {{ todoForm.pristine }} | 
+                Form Touched: {{ todoForm.touched }}
+            </small>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn-primary" [disabled]="!todoText.trim()">
+            <button 
+                type="submit" 
+                class="btn-primary" 
+                [disabled]="todoForm.invalid || !todoModel.todoText.trim()">
                 ➕ Thêm Todo
+            </button>
+            <button 
+                type="button" 
+                class="btn-secondary" 
+                (click)="resetForm()"
+                [disabled]="todoForm.pristine">
+                🔄 Reset
             </button>
         </div>
     </form>

@@ -1,1 +1,32 @@
-/* Component specific styles nếu cần */
+/* Error message styles */
+.error-message {
+  margin-top: 5px;
+  color: #dc3545;
+  font-size: 13px;
+}
+
+.error-message small {
+  display: block;
+  margin-top: 3px;
+}
+
+/* Input validation states */
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty {
+  border-color: #dc3545;
+}
+
+input.ng-valid.ng-touched,
+input.ng-valid.ng-dirty {
+  border-color: #28a745;
+}
+
+/* Form status (for debugging) */
+.form-status {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  font-size: 12px;
+  color: #6c757d;
+}
