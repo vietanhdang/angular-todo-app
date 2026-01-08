@@ -1,0 +1,170 @@
+<div class="demo-container">
+	<div class="demo-header">
+		<h1>🔄 Component Communication Demo</h1>
+		<p>&#64;Input, &#64;Output, và EventEmitter - Parent-Child Communication</p>
+	</div>
+
+	<!-- Real Example -->
+	<section class="demo-section highlight-section">
+		<h2>🎯 Ví dụ thực tế trong app</h2>
+		<div class="example-box">
+			<h3>TodoListComponent ⟷ TodoItemComponent</h3>
+			<div class="communication-diagram">
+				<div class="parent-box">
+					<div class="component-title">Parent: TodoListComponent</div>
+					<div class="data-flow">
+						<div class="flow-item">
+							<span class="flow-label">&#64;Input →</span>
+							<code>[todo]="todoData"</code>
+						</div>
+						<div class="flow-item">
+							<span class="flow-label">&#64;Input →</span>
+							<code>[isEditing]="true"</code>
+						</div>
+						<div class="flow-item">
+							<span class="flow-label">&#64;Input →</span>
+							<code>[editText]="text"</code>
+						</div>
+					</div>
+				</div>
+
+				<div class="arrow-down">⬇️ Input Data</div>
+
+				<div class="child-box">
+					<div class="component-title">Child: TodoItemComponent</div>
+					<div class="component-content">
+						<p>Component nhận data và hiển thị UI</p>
+						<p>User tương tác: click, edit, delete...</p>
+					</div>
+				</div>
+
+				<div class="arrow-up">⬆️ Output Events</div>
+
+				<div class="parent-box">
+					<div class="component-title">Parent: TodoListComponent</div>
+					<div class="data-flow">
+						<div class="flow-item">
+							<span class="flow-label">← &#64;Output</span>
+							<code>(toggleComplete)="handle($event)"</code>
+						</div>
+						<div class="flow-item">
+							<span class="flow-label">← &#64;Output</span>
+							<code>(delete)="handleDelete($event)"</code>
+						</div>
+						<div class="flow-item">
+							<span class="flow-label">← &#64;Output</span>
+							<code>(saveEdit)="handleSave($event)"</code>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Examples -->
+	<section class="demo-section">
+		<h2>📝 Code Examples</h2>
+		<div class="examples-grid">
+			<div class="example-card" *ngFor="let example of examples">
+				<h3>{{ example.title }}</h3>
+				<p class="example-desc">{{ example.description }}</p>
+
+				<div class="code-section">
+					<h4>Parent Component</h4>
+					<pre><code>{{ example.parentCode }}</code></pre>
+				</div>
+
+				<div class="code-section">
+					<h4>Child Component</h4>
+					<pre><code>{{ example.childCode }}</code></pre>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Workflow -->
+	<section class="demo-section">
+		<h2>🔄 Communication Workflow</h2>
+		<div class="workflow-steps">
+			<div class="workflow-step" *ngFor="let item of workflow">
+				<div class="step-number">{{ item.step }}</div>
+				<div class="step-content">
+					<h3>{{ item.title }}</h3>
+					<p>{{ item.description }}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Benefits -->
+	<section class="demo-section">
+		<h2>✨ Lợi ích</h2>
+		<div class="benefits-grid">
+			<div class="benefit-card" *ngFor="let benefit of benefits">
+				<span class="benefit-icon">✓</span>
+				<span class="benefit-text">{{ benefit }}</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- Key Points -->
+	<section class="demo-section">
+		<div class="info-box">
+			<h3>💡 Điểm quan trọng</h3>
+			<ul>
+				<li>
+					<strong>&#64;Input()</strong> - Decorator để đánh dấu property nhận dữ liệu từ parent
+					<code>&#64;Input() data: any;</code>
+				</li>
+				<li>
+					<strong>&#64;Output()</strong> - Decorator để đánh dấu property gửi events lên parent
+					<code>&#64;Output() event = new EventEmitter();</code>
+				</li>
+				<li>
+					<strong>EventEmitter&lt;T&gt;</strong> - Class để tạo và emit custom events
+					<code>this.event.emit(value);</code>
+				</li>
+				<li>
+					<strong>Property Binding []</strong> - Bind dữ liệu vào &#64;Input
+					<code>[property]="value"</code>
+				</li>
+				<li>
+					<strong>Event Binding ()</strong> - Lắng nghe &#64;Output events
+					<code>(event)="handler($event)"</code>
+				</li>
+				<li>
+					<strong>$event</strong> - Biến đặc biệt chứa dữ liệu được emit từ child
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- Best Practices -->
+	<section class="demo-section">
+		<div class="best-practices">
+			<h3>🎯 Best Practices</h3>
+			<div class="practice-list">
+				<div class="practice-item">
+					<h4>✓ DO</h4>
+					<ul>
+						<li>Sử dụng type rõ ràng cho &#64;Input và &#64;Output</li>
+						<li>Đặt tên &#64;Output events theo dạng động từ (click, change, delete)</li>
+						<li>Giữ child component đơn giản và focused</li>
+						<li>Document &#64;Input/&#64;Output trong comments</li>
+						<li>Sử dụng ! (non-null assertion) cho required &#64;Input</li>
+					</ul>
+				</div>
+				<div class="practice-item">
+					<h4>✗ DON'T</h4>
+					<ul>
+						<li>Modify &#64;Input data trực tiếp (tạo copy nếu cần)</li>
+						<li>Emit quá nhiều events không cần thiết</li>
+						<li>Tạo circular dependencies giữa components</li>
+						<li>Pass toàn bộ service vào child component</li>
+						<li>Quên unsubscribe EventEmitter (Angular tự động làm)</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
 import { Todo, TodoRequest } from '../../models/todo.model';
 import { TodoFormComponent } from '../todo-form/todo-form.component';
+import { TodoItemComponent } from '../todo-item/todo-item.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-todo-list',
 	standalone: true,
-	imports: [CommonModule, FormsModule, TodoFormComponent],
+	imports: [CommonModule, FormsModule, TodoFormComponent, TodoItemComponent],
 	templateUrl: './todo-list.component.html',
 	styleUrls: ['./todo-list.component.css'],
 })
@@ -30,7 +32,9 @@ export class TodoListComponent implements OnInit {
 	editingTodoId: number | null = null;
 	editTodoText: string = '';
 
-	constructor(private todoService: TodoService) { }
+	constructor(private todoService: TodoService, private route: ActivatedRoute) {
+		console.log('Route params:', this.route.snapshot.params);
+	}
 
 	ngOnInit(): void {
 		this.loadTodos();

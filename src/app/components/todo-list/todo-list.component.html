@@ -1,129 +1,78 @@
 <div class="container">
-    <h1>📝 Angular Todo App</h1>
+	<h1>📝 Angular Todo App</h1>
 
-    <!-- Todo Form -->
-    <app-todo-form (todoAdded)="addTodo($event.todo, $event.userId)"></app-todo-form>
+	<!-- Todo Form -->
+	<app-todo-form (todoAdded)="addTodo($event.todo, $event.userId)"></app-todo-form>
 
-    <!-- Filters -->
-    <div class="filters">
-        <h3>🔍 Bộ lọc</h3>
-        <div class="filter-row">
-            <div class="form-group">
-                <label>Lọc theo User ID:</label>
-                <input
-                    type="number"
-                    [(ngModel)]="selectedUserId"
-                    (change)="onFilterChange()"
-                    placeholder="Nhập User ID (1-30)"
-                />
-            </div>
+	<!-- Filters -->
+	<div class="filters">
+		<h3>🔍 Bộ lọc</h3>
+		<div class="filter-row">
+			<div class="form-group">
+				<label>Lọc theo User ID:</label>
+				<input type="number" [(ngModel)]="selectedUserId" (change)="onFilterChange()"
+					placeholder="Nhập User ID (1-30)" />
+			</div>
 
-            <div class="form-group">
-                <label>Trạng thái:</label>
-                <select [(ngModel)]="filterCompleted" (change)="onFilterChange()">
-                    <option value="all">Tất cả</option>
-                    <option value="completed">Đã hoàn thành</option>
-                    <option value="pending">Chưa hoàn thành</option>
-                </select>
-            </div>
+			<div class="form-group">
+				<label>Trạng thái:</label>
+				<select [(ngModel)]="filterCompleted" (change)="onFilterChange()">
+					<option value="all">Tất cả</option>
+					<option value="completed">Đã hoàn thành</option>
+					<option value="pending">Chưa hoàn thành</option>
+				</select>
+			</div>
 
-            <div class="form-group">
-                <label>Số items mỗi trang:</label>
-                <select [(ngModel)]="itemsPerPage" (change)="onFilterChange()">
-                    <option [value]="5">5</option>
-                    <option [value]="10">10</option>
-                    <option [value]="20">20</option>
-                    <option [value]="30">30</option>
-                </select>
-            </div>
-        </div>
+			<div class="form-group">
+				<label>Số items mỗi trang:</label>
+				<select [(ngModel)]="itemsPerPage" (change)="onFilterChange()">
+					<option [value]="5">5</option>
+					<option [value]="10">10</option>
+					<option [value]="20">20</option>
+					<option [value]="30">30</option>
+				</select>
+			</div>
+		</div>
 
-        <div style="margin-top: 15px">
-            <button class="btn-warning" (click)="getRandomTodo()">🎲 Lấy Random Todo</button>
-        </div>
-    </div>
+		<div style="margin-top: 15px">
+			<button class="btn-warning" (click)="getRandomTodo()">🎲 Lấy Random Todo</button>
+		</div>
+	</div>
 
-    <!-- Error Message -->
-    <div *ngIf="error" class="error">❌ {{ error }}</div>
+	<!-- Error Message -->
+	<div *ngIf="error" class="error">❌ {{ error }}</div>
 
-    <!-- Loading State -->
-    <div *ngIf="loading" class="loading">⏳ Đang tải...</div>
+	<!-- Loading State -->
+	<div *ngIf="loading" class="loading">⏳ Đang tải...</div>
 
-    <!-- Todo List -->
-    <div *ngIf="!loading">
-        <h3>📋 Danh sách Todos ({{ totalItems }} items)</h3>
+	<!-- Todo List -->
+	<div *ngIf="!loading">
+		<h3>📋 Danh sách Todos ({{ totalItems }} items)</h3>
 
-        <ul class="todo-list" *ngIf="todos.length > 0">
-            <li *ngFor="let todo of todos" class="todo-item" [class.completed]="todo.completed">
-                <div class="todo-content">
-                    <!-- Edit Mode -->
-                    <div *ngIf="editingTodoId === todo.id">
-                        <input
-                            type="text"
-                            [(ngModel)]="editTodoText"
-                            (keyup.enter)="saveEdit(todo.id)"
-                            (keyup.escape)="cancelEdit()"
-                        />
-                    </div>
+		<ul class="todo-list" *ngIf="todos.length > 0">
+			<!-- Sử dụng TodoItemComponent - Demo Component Communication -->
+			<app-todo-item *ngFor="let todo of todos" [todo]="todo" [isEditing]="editingTodoId === todo.id"
+				[editText]="editTodoText" (toggleComplete)="toggleComplete($event)" (startEdit)="startEdit($event)"
+				(saveEdit)="saveEdit($event)" (cancelEdit)="cancelEdit()" (delete)="deleteTodo($event)"
+				(editTextChange)="editTodoText = $event">
+			</app-todo-item>
+		</ul>
 
-                    <!-- View Mode -->
-                    <div *ngIf="editingTodoId !== todo.id">
-                        <div class="todo-text">
-                            {{ todo.todo }}
-                            <span
-                                class="status-badge"
-                                [class.status-completed]="todo.completed"
-                                [class.status-pending]="!todo.completed"
-                            >
-                                {{ todo.completed ? '✓ Hoàn thành' : '○ Chưa xong' }}
-                            </span>
-                        </div>
-                        <div class="todo-meta">ID: {{ todo.id }} | User ID: {{ todo.userId }}</div>
-                    </div>
-                </div>
+		<div *ngIf="todos.length === 0" style="text-align: center; padding: 40px; color: #6c757d">
+			Không có todo nào
+		</div>
 
-                <div class="todo-actions">
-                    <!-- Edit Mode Actions -->
-                    <ng-container *ngIf="editingTodoId === todo.id">
-                        <button class="btn-success" (click)="saveEdit(todo.id)">💾 Lưu</button>
-                        <button class="btn-secondary" (click)="cancelEdit()">❌ Hủy</button>
-                    </ng-container>
+		<!-- Pagination -->
+		<div class="pagination" *ngIf="totalPages > 1">
+			<button class="btn-secondary" [disabled]="!hasPrevPage" (click)="changePage(currentPage - 1)">
+				← Trước
+			</button>
 
-                    <!-- View Mode Actions -->
-                    <ng-container *ngIf="editingTodoId !== todo.id">
-                        <button class="btn-success" (click)="toggleComplete(todo)">
-                            {{ todo.completed ? '↩️ Chưa xong' : '✓ Hoàn thành' }}
-                        </button>
-                        <button class="btn-warning" (click)="startEdit(todo)">✏️ Sửa</button>
-                        <button class="btn-danger" (click)="deleteTodo(todo.id)">🗑️ Xóa</button>
-                    </ng-container>
-                </div>
-            </li>
-        </ul>
+			<span>Trang {{ currentPage }} / {{ totalPages }}</span>
 
-        <div *ngIf="todos.length === 0" style="text-align: center; padding: 40px; color: #6c757d">
-            Không có todo nào
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination" *ngIf="totalPages > 1">
-            <button
-                class="btn-secondary"
-                [disabled]="!hasPrevPage"
-                (click)="changePage(currentPage - 1)"
-            >
-                ← Trước
-            </button>
-
-            <span>Trang {{ currentPage }} / {{ totalPages }}</span>
-
-            <button
-                class="btn-secondary"
-                [disabled]="!hasNextPage"
-                (click)="changePage(currentPage + 1)"
-            >
-                Sau →
-            </button>
-        </div>
-    </div>
+			<button class="btn-secondary" [disabled]="!hasNextPage" (click)="changePage(currentPage + 1)">
+				Sau →
+			</button>
+		</div>
+	</div>
 </div>
