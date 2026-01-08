@@ -1,0 +1,262 @@
+<div class="lifecycle-container">
+  <div class="lifecycle-header">
+    <h1>🔄 Angular Lifecycle Hooks</h1>
+    <p>Component Lifecycle và Change Detection</p>
+  </div>
+
+  <!-- Lifecycle Order Diagram -->
+  <section class="lifecycle-section">
+    <h2>📊 Thứ tự Lifecycle Hooks</h2>
+    <div class="lifecycle-diagram">
+      <div
+        class="hook-card"
+        *ngFor="let hook of lifecycleHooks"
+        [style.border-left-color]="hook.color"
+      >
+        <div class="hook-header">
+          <span class="hook-order" [style.background]="hook.color">{{ hook.order }}</span>
+          <span class="hook-name">{{ hook.name }}</span>
+        </div>
+        <div class="hook-timing">⏰ {{ hook.timing }}</div>
+        <div class="hook-description">{{ hook.description }}</div>
+        <div class="hook-usage">
+          <strong>Use case:</strong>
+          {{ hook.usage }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo -->
+  <section class="lifecycle-section">
+    <h2>🎮 Interactive Demo</h2>
+    <p class="section-desc">
+      Thử các actions bên dưới và xem console log / logs để thấy lifecycle hooks được gọi
+    </p>
+
+    <div class="demo-area">
+      <!-- Controls -->
+      <div class="demo-controls">
+        <h3>🎛️ Controls</h3>
+        <div class="control-buttons">
+          <button class="btn-primary" (click)="incrementCounter()">
+            ➕ Increment Counter ({{ counter }})
+          </button>
+          <button class="btn-primary" (click)="updateData()">🔄 Update Data</button>
+          <button class="btn-warning" (click)="toggleChild()">
+            {{ showChild ? '❌ Destroy Child' : '✨ Create Child' }}
+          </button>
+          <button class="btn-secondary" (click)="startAutoIncrement()">
+            {{ intervalId ? '⏸️ Stop Auto' : '▶️ Auto Increment' }}
+          </button>
+          <button class="btn-danger" (click)="clearLogs()">🗑️ Clear Logs</button>
+        </div>
+
+        <div class="demo-info">
+          <div class="info-item">
+            <span class="info-label">Counter:</span>
+            <span class="info-value">{{ counter }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Child Data:</span>
+            <span class="info-value">{{ childData }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Child Status:</span>
+            <span class="info-value" [class.active]="showChild" [class.inactive]="!showChild">
+              {{ showChild ? '✓ Active' : '✗ Destroyed' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Child Component -->
+      <div class="demo-child">
+        <h3>👨‍👦 Parent-Child Relationship</h3>
+
+        <div class="parent-box">
+          <h4>👨 Parent Component</h4>
+          <p>Truyền data qua &#64;Input bindings</p>
+          <code>[counter]="{{ counter }}" [data]="{{ childData }}"</code>
+
+          <app-lifecycle-child *ngIf="showChild" [counter]="counter" [data]="childData">
+            <p style="color: #666; margin: 0">📦 This is projected content (ng-content)</p>
+          </app-lifecycle-child>
+
+          <div *ngIf="!showChild" class="no-child">
+            <p>⚠️ Child component đã bị destroy</p>
+            <p>Click "Create Child" để tạo lại</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logs -->
+  <section class="lifecycle-section">
+    <h2>📝 Lifecycle Logs</h2>
+    <div class="logs-container">
+      <div class="log-header">
+        <span>Time</span>
+        <span>Component</span>
+        <span>Hook</span>
+        <span>Message</span>
+      </div>
+      <div class="logs-list">
+        <div
+          class="log-entry"
+          *ngFor="let log of logs; trackBy: trackByIndex"
+          [class.parent-log]="log.component === 'parent'"
+          [class.child-log]="log.component === 'child'"
+        >
+          <span class="log-time">{{ log.timestamp | date: 'HH:mm:ss.SSS' }}</span>
+          <span class="log-component">{{ log.component }}</span>
+          <span class="log-hook">{{ log.hook }}</span>
+          <span class="log-message">{{ log.message }}</span>
+        </div>
+        <div *ngIf="logs.length === 0" class="no-logs">
+          <p>Không có logs. Thử click các buttons để trigger lifecycle hooks!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Practices -->
+  <section class="lifecycle-section">
+    <div class="best-practices">
+      <h3>💡 Best Practices</h3>
+      <div class="practice-grid">
+        <div class="practice-card do">
+          <h4>✓ DO</h4>
+          <ul>
+            <li>
+              <strong>ngOnInit:</strong>
+              Initialize component, fetch data, setup subscriptions
+            </li>
+            <li>
+              <strong>ngOnDestroy:</strong>
+              Always cleanup: unsubscribe, clear timers, remove event listeners
+            </li>
+            <li>
+              <strong>ngOnChanges:</strong>
+              Validate &#64;Input changes, reset state if needed
+            </li>
+            <li>
+              <strong>constructor:</strong>
+              Chỉ inject dependencies, không gọi APIs
+            </li>
+            <li>
+              <strong>ngAfterViewInit:</strong>
+              Access ViewChild/ViewChildren, DOM operations
+            </li>
+          </ul>
+        </div>
+
+        <div class="practice-card dont">
+          <h4>✗ DON'T</h4>
+          <ul>
+            <li>
+              <strong>constructor:</strong>
+              Không fetch data, không có side effects
+            </li>
+            <li>
+              <strong>ngDoCheck:</strong>
+              Tránh heavy operations, chạy rất thường xuyên
+            </li>
+            <li>
+              <strong>ngAfterViewChecked:</strong>
+              Không thay đổi data, sẽ gây ExpressionChangedAfterItHasBeenCheckedError
+            </li>
+            <li>
+              <strong>ngOnDestroy:</strong>
+              Không quên cleanup, sẽ gây memory leaks
+            </li>
+            <li>Không dùng quá nhiều lifecycle hooks nếu không cần thiết</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Use Cases -->
+  <section class="lifecycle-section">
+    <div class="use-cases">
+      <h3>🎯 Common Use Cases</h3>
+      <div class="usecase-grid">
+        <div class="usecase-card">
+          <h4>Fetch Data</h4>
+          <pre><code>ngOnInit() {{'{'}}{{'}'}}
+  this.service.getData()
+    .subscribe(data => {{'{'}}
+      this.data = data;
+    {{'}'}});
+{{'}'}}</code></pre>
+        </div>
+
+        <div class="usecase-card">
+          <h4>Cleanup Subscription</h4>
+          <pre><code>ngOnDestroy() {{'{'}}{{'}'}}
+  this.subscription?.unsubscribe();
+  clearInterval(this.timer);
+{{'}'}}</code></pre>
+        </div>
+
+        <div class="usecase-card">
+          <h4>Access ViewChild</h4>
+          <pre><code>ngAfterViewInit() {{'{'}}{{'}'}}
+  this.myChild.doSomething();
+  this.element.nativeElement.focus();
+{{'}'}}</code></pre>
+        </div>
+
+        <div class="usecase-card">
+          <h4>React to Input Changes</h4>
+          <pre><code>ngOnChanges(changes: SimpleChanges) {{'{'}}{{'}'}}
+  if (changes['userId']) {{'{'}}
+    this.loadUserData();
+  {{'}'}}
+{{'}'}}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section class="lifecycle-section">
+    <div class="tips-box">
+      <h3>💡 Tips & Tricks</h3>
+      <ul>
+        <li>
+          🔍
+          <strong>Open DevTools Console</strong>
+          để xem detailed logs của lifecycle hooks
+        </li>
+        <li>
+          ⏱️
+          <strong>ngDoCheck</strong>
+          và
+          <strong>ngAfterContentChecked</strong>
+          ,
+          <strong>ngAfterViewChecked</strong>
+          chạy rất thường xuyên - tránh heavy operations
+        </li>
+        <li>
+          🧹
+          <strong>Always cleanup</strong>
+          trong ngOnDestroy để tránh memory leaks
+        </li>
+        <li>
+          🎯
+          <strong>Use async pipe</strong>
+          khi có thể - tự động unsubscribe
+        </li>
+        <li>
+          📦
+          <strong>ngOnChanges</strong>
+          chỉ detect reference changes, không detect deep object changes
+        </li>
+        <li>⚡ Constructor nên nhẹ - complex logic nên để trong ngOnInit</li>
+      </ul>
+    </div>
+  </section>
+</div>

@@ -30,6 +30,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'lifecycle',
+    loadComponent: () =>
+      import('./pages/lifecycle/lifecycle.component').then((m) => m.LifecycleComponent),
+  },
+  {
     path: '**',
     redirectTo: '/home',
   },
